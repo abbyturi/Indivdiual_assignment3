@@ -1,0 +1,155 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: 'DSCI 310: Historical Horse Population in Canada'\n",
+        "author: Tiffany Timbers & Jordan Bourak\n",
+        "date: '2024-12-08'\n",
+        "bibliography: references.bib\n",
+        "toc: true\n",
+        "toc-depth: 2\n",
+        "format:\n",
+        "  html:\n",
+        "    toc: true\n",
+        "    toc-title: Table of Contents\n",
+        "jupyter:\n",
+        "  jupytext:\n",
+        "    python3:\n",
+        "      text_representation:\n",
+        "        extension: .qmd\n",
+        "        format_name: quarto\n",
+        "        format_version: '1.0'\n",
+        "        jupytext_version: 1.16.4\n",
+        "    text_representation:\n",
+        "      extension: .qmd\n",
+        "      format_name: quarto\n",
+        "      format_version: '1.0'\n",
+        "      jupytext_version: 1.16.4\n",
+        "  kernelspec:\n",
+        "    display_name: Python (quarto-python)\n",
+        "    language: python\n",
+        "    name: quarto-python\n",
+        "---"
+      ],
+      "id": "ba75210a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "from IPython.display import Markdown, display\n",
+        "from tabulate import tabulate"
+      ],
+      "id": "af365751",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Aim\n",
+        "\n",
+        "This project explores the historical population of horses in Canada \n",
+        "between 1906 and 1972 for each province.\n",
+        "\n",
+        "# Data\n",
+        "\n",
+        "Horse population data were sourced from the [Government of Canada's Open Data website](http://open.canada.ca/en/open-data) [@horses1; @horses2].\n",
+        "\n",
+        "\n",
+        "# Methods\n",
+        "\n",
+        "The Python programming language (Van Rossum and Drake 2009)\n",
+        "and the following Python packages were used to perform the analysis: \n",
+        "pandas (McKinney 2010), altair (VanderPlas 2018), click (Team 2020), \n",
+        "as well as Quarto (Allaire et al. 2022). \n",
+        "*Note: this report is adapted from Timbers (2020).* \n",
+        "\n",
+        "# Results\n",
+        "\n",
+        "![](../results/horse_pops_plot.png)\n",
+        "\n",
+        "Figure 1: Horse populations for all provinces in Canada from 1906 - 1972.\n",
+        "\n",
+        "We can see from Figure 1 that Ontario, Saskatchewan and Alberta \n",
+        "have had the highest horse populations in Canada. \n",
+        "All provinces have had a decline in horse populations since 1940. \n",
+        "This is likely due to the rebound of the Canadian automotive industry \n",
+        "after the Great Depression and the Second World War. \n",
+        "An interesting follow-up visualisation would be car sales per year \n",
+        "for each Province over the time period visualised above \n",
+        "to further support this hypothesis.\n",
+        "\n",
+        "Suppose we were interested in looking in more closely at the province \n",
+        "with the highest spread (in terms of standard deviation) of horse populations. \n",
+        "We present the standard deviations in Table 1.\n",
+        "\n",
+        "Table 1. Standard deviation of historical (1906-1972) horse populations for each Canadian province.\n"
+      ],
+      "id": "164d637f"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "horses_sd_table = pd.read_csv(\"../results/horses_sd.csv\")\n",
+        "largest_sd = horses_sd_table['Province'].values[0]\n",
+        "Markdown(horses_sd_table.to_markdown(index = False))"
+      ],
+      "id": "ca4d9349",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Note that we define standard deviation (of a sample) as\n",
+        "\n",
+        "$$s = \\sqrt{\\frac{\\sum_{i=1}^N (x_i - \\overline{x})^2}{N-1} }$$\n",
+        "\n",
+        "Additionally, note that in Table 1 we consider the sample standard deviation of the number of horses during the same time span as Figure 1.\n",
+        "\n",
+        "![](../results/horse_pops_plot_largest_sd.png)\n",
+        "\n",
+        "\n",
+        "Figure 2: Horse populations for the province with the largest standard deviation\n",
+        "\n",
+        "In Figure 2 we zoom in and look at the province of `r largest_sd_prov`, which had the largest spread of values in terms of standard deviation.\n",
+        "\n",
+        "# References"
+      ],
+      "id": "b0441246"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python (quarto-python)",
+      "language": "python",
+      "name": "quarto-python"
+    },
+    "jupytext": {
+      "python3": {
+        "text_representation": {
+          "extension": ".qmd",
+          "format_name": "quarto",
+          "format_version": "1.0",
+          "jupytext_version": "1.16.4"
+        }
+      },
+      "text_representation": {
+        "extension": ".qmd",
+        "format_name": "quarto",
+        "format_version": "1.0",
+        "jupytext_version": "1.16.4"
+      }
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
